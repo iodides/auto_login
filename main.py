@@ -1,8 +1,22 @@
-import time, json
+#!./.venv/bin/python
+
+import time, json, logging
 import filesun, etoland
 
+log = logging.getLogger('auto_login')
+log.setLevel(logging.DEBUG)
+formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+ch = logging.StreamHandler()
+ch.setLevel(logging.DEBUG)
+ch.setFormatter(formatter)
+fh = logging.FileHandler(filename='logfile.log')
+fh.setLevel(logging.DEBUG)
+fh.setFormatter(formatter)
+log.addHandler(ch)
+log.addHandler(fh)
+
 if __name__ == '__main__':
-    print('Main Process Start')
+    log.info('=== Main Process Start')
 
     with open('config.json') as json_file:
         json_data = json.load(json_file)
@@ -23,4 +37,4 @@ if __name__ == '__main__':
     #     etoland.init()
     #     break
     #     time.sleep(1*60*60) # hour
-    print('Main Process Stop')
+    log.info('=== Main Process Stop')
